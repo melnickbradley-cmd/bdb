@@ -1,0 +1,112 @@
+godmode_test_harness/
+  sequences/example.eth.yaml
+  tx_ledger/
+    chains/ethereum/0xtestctrl/1757493166341.json
+    chains/ethereum/0xtestctrl/1757493166342.json
+    chains/ethereum/0xtestctrl/1757493166343.json
+    chains/ethereum/0xtestctrl/1757493166344.json
+    banks/simplii/bradley/deposit/1757...344.json
+    banks/simplii/bradley/withdraw/1757...345.json
+    banks/koho/bradley/deposit/1757...346.json
+    banks/koho/bradley/withdraw/1757...347.json
+
+
+
+
+{
+  "sequence": "/mnt/data/godmode_test_harness/sequences/example.eth.yaml",
+  "receipt": {
+    "index": 0,
+    "kind": "transfer",
+    "to": "0x0000000000000000000000000000000000000000",
+    "nonce": 1,
+    "hash": "0x13614c2d39b699d45e6bcfbc5272c2b7e509ccd06aa0837762a9f44db2b3ff0b",
+    "dry_run": true
+  }
+}
+
+{
+  "bank": "simplii",
+  "op": "deposit",
+  "amount_cents": 12500,
+  "dest": "SIMP-CHK-0001",
+  "memo": "seed capital",
+  "status": "queued"
+}
+from .env import RPCS, DEFAULT_CHAIN, ALLOWLIST
+from .policy import Policy, is_allowed
+
+def run(path: str, controller: str, dry_run: bool = True) -> dict:
+    if not is_allowed(controller, ALLOWLIST):
+        raise RuntimeError("Controller not allowlisted")
+    ...
+
+if step["kind"] == "transfer":
+    value_eth = value / 10**18
+    if value_eth > policy.max_native_value_eth:
+        raise RuntimeError("Policy: value exceeds max_native_value_eth")
+    if not _allowed_target(step["to"], policy.allowed_targets):
+        raise RuntimeError("Policy: target not allowed")
+
+if dry_run:
+    receipts.append({"index": idx, "preview": tx, "dry_run": True})
+else:
+    raw = sign_raw_tx(tx)
+    txh = w3.eth.send_raw_transaction(bytes.fromhex(raw[2:]))
+    receipts.append({"index": idx, "tx": txh.payload["_meta"] = {
+  "ts": int(time.time()*1000),
+  "user": request.session.get("user"),
+  "version": APP_VERSION,
+  "schema": "1.0.0",
+}
+# 1) Unzip into your workspace
+unzip GODMODE-000-111-EXT2-ledger-banks.zip
+cd GODMODE-000-111-EXT2
+
+# 2) Set up a virtual environment and install
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+
+# 3) Configure environment
+cp .env.example .env
+# Set:
+# - INVITE_CODES (e.g., alpha-000)
+# - PRIVATE_KEY (testnet only!)
+# - ETH_RPC (e.g., Sepolia/Rinkeby)
+# - ALLOWLIST = your controller address
+# Optionally, assign ADMINS or OPERATORS roles in .env
+
+# 4) Launch the app
+uvicorn app:app --reload
+
+# 5) Open in your browser
+http://127.0.0.1:8000
+
+Enter your invite code, and you’ll access the UI with:
+- Dashboard (000/111 aesthetic)
+- Sequence runner (dry run)
+- Bank Ops forms (Simplii / KOHO stubs)
+- Transaction ledger logged under `tx_ledger/`
+
+connect()         # get a client
+get_balance()     # per token
+transfer(...)     # send funds
+yield_ops(...)    # deposit/stake/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
